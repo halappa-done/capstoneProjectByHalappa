@@ -9,7 +9,7 @@
         <module name="registry" />
         <module name="config-server" />
       </profile>
-      <profile name="Annotation profile for user-management" enabled="true">
+      <profile name="Annotation profile for order" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

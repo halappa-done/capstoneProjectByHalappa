@@ -1,15 +1,14 @@
 package com.example.order.dto;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class OrderDto {
 
     private Long orderId;
-    @NotEmpty(message = "Product id can not be blank")
-    private Long productId;         //make list of product id's in case multiple product
-
-    @NotEmpty(message = "Quantity can not be blank")
+    @NotNull(message = "Product id can not be blank")
+    private Long productId;         //make list of product id's in case multiple product per order
+    @NotNull(message = "Quantity can not be blank")
     @Min(value = 1, message = "Quantity should at least 1")
     private Integer quantity;
     private Double price;

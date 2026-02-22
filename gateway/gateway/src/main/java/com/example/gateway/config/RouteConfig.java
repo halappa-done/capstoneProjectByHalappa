@@ -11,15 +11,24 @@ public class RouteConfig {
 
 
     @Bean
-    RouteLocator handleRoutes(RouteLocatorBuilder builder, MyGatewayFilter custom) {
+    RouteLocator handleRoutes(RouteLocatorBuilder builder, MyGatewayFilter gatewayFilter) {
 
         return builder.routes()
-                .route(p -> p.path("/api/v1/auth/**").uri("lb://JWT-AUTH-SERVICE"))
-                .route(p -> p.path("/api/v1/customers/**")
-                        .filters(f -> f.filter(custom) )
-                        .uri("lb://DATA-JPA-DSL-MULTIPART"))
-                .route(p -> p.path("/api/v1/invoices/**").filters(f->f.filter(custom))
-                        .uri("lb://INVOICE-SERVICE"))
+                .route(p -> p.path("/v1/auth/**")
+                        .uri("lb://USER-MANAGEMENT"))
+
+                .route(p -> p.path("/v1/users/**", "/v1/products/**", "/v1/laptops/**")
+                        .filters(f -> f.filter(gatewayFilter))
+                        .uri("lb://USER-MANAGEMENT"))
+
+                .route(p -> p.path("/v1/product/**")
+                        .filters(f->f.filter(gatewayFilter))
+                        .uri("lb://PRODUCT-SERVICE"))
+
+                .route(p -> p.path("/v1/orders/**")
+                        .filters(f->f.filter(gatewayFilter))
+                        .uri("lb://ORDER-SERVICE"))
+
                 .build();
 
 

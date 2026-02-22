@@ -3,22 +3,10 @@ server:
 spring:
   application:
     name: API-GATEWAY
-
-  cloud:
-    gateway:
-      server:
-        webflux:
-          routes:
-            - id: USER-MANAGEMENT
-              uri: lb://USER-MANAGEMENT
-              predicates:
-                - Path=/v1/users/**, /v1/laptops/**, /v1/products/**
-
-            - id: PRODUCT-SERVICE
-              uri: lb://PRODUCT-SERVICE
-              predicates:
-                - Path=/v1/products/**
-
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
 management:
   endpoints:
     web:
@@ -29,18 +17,3 @@ management:
       access: unrestricted
     health:
       show-details: always
-
-eureka:
-  client:
-     service-url:
-        defaultZone: http://localhost:8761/eureka
-
-
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    reactor.netty.http.client: DEBUG
-
-
-
-
